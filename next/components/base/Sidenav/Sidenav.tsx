@@ -2,20 +2,71 @@ import React from 'react'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { CssBaseline, Divider, Drawer, IconButton, List } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SIDENAV_ITEMS } from '@/data/sideNav';
 import SidenavSingleItem from './SidenavSingleItem';
 import SidenavMultiple from './SidenavMultiple';
 import SidenavMultipleItem from './SidenavMultipleItem';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faCake, faDashboard, faEarth, faHouse, faSnowflake } from '@fortawesome/free-solid-svg-icons';
 
 
-export const Sidenav = () => {
+export type SidenavProps = {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+type SidenavItems = {
+  path: string;
+  label: string;
+  icon?: IconProp;
+  subMenu?: boolean;
+  subMenuItems?: SidenavItems[];
+};
+
+const SIDENAV_ITEMS: SidenavItems[] = [
+  {
+    path: "aaa",
+    label: "AAA",
+    icon: faHouse,
+  },
+  {
+    path: "bbb",
+    label: "BBB",
+    icon: faSnowflake,
+  },
+  {
+    path: "ccc",
+    label: "CCC",
+    icon: faEarth,
+  },
+  {
+    path: "ddd",
+    label: "DDD",
+    icon: faCake,
+    subMenu: true,
+    subMenuItems: [
+      { path: "qqq", label: "QQQ" },
+      { path: "www", label: "WWW" },
+      { path: "ppp", label: "PPP" },
+    ]
+  },
+  {
+    path: "eee",
+    label: "EEE",
+    icon: faDashboard,
+    subMenu: true,
+    subMenuItems: [
+      { path: "zzz", label: "ZZZ" },
+      { path: "xxx", label: "XXX" },
+      { path: "yyy", label: "YYY" },
+    ]
+  },
+];
+
+export const Sidenav = ({isOpen, setIsOpen}: SidenavProps) => {
 // サイドメニューの開閉設定
-const [isOpen, setIsOpen] = React.useState(false);
-
 const handleDrawerOpen = () => {
   setIsOpen(true);
 };
-
 const handleDrawerClose = () => {
   setIsOpen(false);
 };
@@ -28,11 +79,14 @@ const handleDrawerClose = () => {
         open={isOpen}
         sx={{
           width: isOpen ? 220 : 64,
+          // height: 'calc(100vh - 20px)',
+          // position: 'fixed',
           '.MuiPaper-root': {
             width: isOpen ? 220 : 64,
-            position: 'relative',
             borderRadius: '10px',
             backgroundColor: '#ffffffcc',
+            position: 'relative',
+            borderRight: 'none',
             }
           }}
         >

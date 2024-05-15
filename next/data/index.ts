@@ -1,1 +1,1 @@
-export { SIDENAV_ITEMS } from './sideNav';
+export { TABLE_ROWS, TABLE_COLUMS } from './table';
